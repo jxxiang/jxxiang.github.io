@@ -1,0 +1,21 @@
+---
+title: camera2中涉及的三个重要的callback
+---
+
+## CameraDevice.StateCallback（）
+
+CameraManager是一个用于检测、描述和连接相机设备的系统服务管理器。
+
+如果要打开相机，需要先获取CameraManager，然后调用其openCamera方法打开相机。
+
+CameraManager.openCamera(String,CameraDevice.StateCallback,Handler)中第一个参数是相机id（可以用CameraManager.getCameraIdList()获得所有可用相机的id）；第二个参数CameraDevice.StateCallback是当CameraDevice被打开时回调的StateCallback；第三个参数handler，决定了回调函数触发的线程，如果是null，则选择当前线程。
+
+在CameraDevice.StateCallback中，要实现三个方法，分别是onOpened(CameraDevice camera)当相机被打开的时候调用，会返回一个CameraDevices对象给应用层；onDisconnected(CameraDevice camera)当相机断开连接时被调用；onError(CameraDevice camera,int error)当相机出现错误时调用。
+
+## CameraCaptureSession.StateCallback
+
+Google采用了pipeline（管道）的概念，将Camera Device相机设备和Android Device安卓设备连接起来， Android Device通过管道发送CaptureRequest拍照请求给Camera Device，Camera Device通过管道返回CameraMetadata数据给Android Device，这一切建立在一个叫作CameraCaptureSession的会话中。
+
+cameraCaptureSession通过CameraDevice.createCaptureSession(List<surface>,CameraCaptureSession.StateCallback,Handler)创建，第一个参数是一个List集合，封装了所有需要从该摄像头获取图片的surface，一般需要两个surface，一个提供预览，一个提供拍照。预览的surface就是相机预览区域，拍照的surface，一般用ImageReader对象来获取ImageReader是系统提供的一个类，它的创建过程已经为我们创建好了一个Surface，我们直接使用它来当作拍照Surface，当拍照成功后，我们就可以从ImageReader.OnImageAvailableListener内部类的onImageAvailable回调方法中获取到一个ImageReader对象，再调用getPlanes()获取到Plane数组，一般取第一个Plane，继续调用getBuffer()就可以获取到拍摄的照片的byte数组了；第二个参数用于监听CameraCaptureSession的创建过程，在CameraCaptureSession.StateCallback中要实现onConfigured(@NonNull CameraCaptureSession ) 方法，在这个方法中会返回一个CameraCaptureSession对象，使用它来作很多的工作，比如断开session连接调用abortCaptures()、拍照调用capture()方法、开始预览调用setRepeatingRequest、停止预览调用stopRepeating()等；第三个参数代表执行callback的handler，决定了回调函数触发的线程，如果是null，则选择当前线程。
+
+不管是预览还是拍照，都要调用CameraDdevice的createCaptureRequest(int template Type)方法创建CaptureRequest.Builder，该方法支持的参数有TEMPLATE_PREVIEW（预览）、TEMPLATE_RECORD（拍摄视频）、TEMPLATE_STILL_CAPTURE（拍照）等。通过调用CaptureRequest.Builder的build()方法得到CaptureRequest对象。CameraCaptureSession的Capture (CaptureRequest, CameraCaptureSession.CaptureCallback , Handler)一般用于拍照，CameraCaptureSession的setRepeatingRequest (CaptureRequest, CameraCaptureSession.CaptureCallback, Handler)一般用于捕获画面输出至预览界面或者录制视频。重写CameraCaptureSession.CaptureCallback中的onCaptureCompleted方法，result就是未经处理的元数据。
