@@ -92,7 +92,8 @@ $$
 损失函数$f=(R_{u,i}-q_i^Tp_u)^2+ \lambda q_i^2+\lambda p_u^2$分别对q<sub>i</sub>和p<sub>u</sub>求偏导如下：
 $$
 \begin{cases}
-\frac {\partial f}{\partial q_i}=-2p_u(R_{u,i}-q_i^Tp_u)+2\lambda q_i \\
+\frac {\partial f}{\partial q_i}=-2p_u(R_{u,i}-q_i^Tp_u)+2\lambda q_i 
+\\\\
 \frac {\partial f}{\partial p_u}=-2q_i(R_{u,i}-q_i^Tp_u)+2\lambda p_u
 \end{cases}
 $$
@@ -102,7 +103,8 @@ $$
 为了最小化损失函数，令学习步长为$\frac  {\gamma}{2}$，朝着梯度相反的方向改变$p_u$和$q_i$，所以：
 $$
 \begin{cases}
-q_i=q_i+\gamma(e_{u,i}p_u-\lambda q_i)\\
+q_i=q_i+\gamma(e_{u,i}p_u-\lambda q_i)
+\\\\
 p_u=p_u+\gamma(e_{u,i}q_i-\lambda p_u)
 \end{cases}
 $$
