@@ -1,5 +1,6 @@
 ---
 title: 潜在因子（Latent Factor）推荐算法—音乐推荐
+mathjax: true
 ---
 
 
