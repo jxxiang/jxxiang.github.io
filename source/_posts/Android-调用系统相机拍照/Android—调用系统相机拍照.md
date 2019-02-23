@@ -126,7 +126,7 @@ title: Android—调用系统相机拍照
 
 目录结构如下图所示：
 
-![p1](pic/1.png)
+![Markdown](http://i2.bvimg.com/662648/530b49ecab6e26cf.png)
 
 
 

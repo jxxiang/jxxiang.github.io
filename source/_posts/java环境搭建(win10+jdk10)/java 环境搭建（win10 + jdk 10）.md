@@ -10,13 +10,13 @@ title: java 环境搭建（win10 + jdk 10）
 
 点击下图中DOWNLOAD调转到下载页面
 
-![p1](pic\1.png)
+![Markdown](http://i1.bvimg.com/662648/269f8462013c3b59.png)
 
 
 
 点击下图中的协议选择相应版本进行下载（这里下载的是jdk10.0.2 for windows 64)
 
-![p2](pic\2.png)
+![Markdown](http://i1.bvimg.com/662648/a46e4051f8489359.png)
 
 
 
@@ -24,7 +24,7 @@ title: java 环境搭建（win10 + jdk 10）
 
 jdk下载下来是一个.exe文件，双击这个文件，按照提示进行安装（这里按照默认路径装在了C盘）
 
-![p3](pic\3.png)
+![Markdown](http://i1.bvimg.com/662648/ea339ee25c39f746.png)
 
 
 
@@ -34,13 +34,15 @@ jdk下载下来是一个.exe文件，双击这个文件，按照提示进行安�
 
 右击”我的电脑“，点击”属性“，选择”高级系统设置“，如下图所示
 
-![p4](pic\4.png)
+![Markdown](http://i1.bvimg.com/662648/1a4cb8c35c421a83.png)
+
+
 
 
 
 点开”高级“选项卡，选择下方的”环境变量“
 
-![p5](pic\5.png)
+![Markdown](http://i1.bvimg.com/662648/27d1b911d69d2835.png)
 
 
 
@@ -52,19 +54,19 @@ jdk下载下来是一个.exe文件，双击这个文件，按照提示进行安�
 
 **JAVA_HOME：** 在系统变量中如果没有JAVA_HOME则新建系统变量JAVA_HOME，变量值是jdk的安装路径，如下图所示。
 
-![p6](pic\6.png)
+![Markdown](http://i1.bvimg.com/662648/b93c499951f52ad9.png)
 
 
 
 **JRE_HOME：**在系统变量中如果没有JRE_HOME则新建系统变量JRE_HOME，变量值是jre的安装路径，如下图所示。
 
-![p7](pic\7.png)
+![Markdown](http://i1.bvimg.com/662648/e265663f3d4fd840.png)
 
 
 
 **CLASS_PATH：**在系统变量中如果没有CLASS_PATH则新建系统变量CLASS_PATH，变量值为：```.;%JAVA_HOME%\lib;%JRE_HOME%\lib``` ，如下图所示。
 
-![p8](pic\8.png)
+![Markdown](http://i1.bvimg.com/662648/133113c2b4faa751.png)
 
 
 
@@ -78,21 +80,21 @@ jdk下载下来是一个.exe文件，双击这个文件，按照提示进行安�
 
 如下图所示则表明配置成功。
 
-![p10](pic\10.png)
+![Markdown](http://i1.bvimg.com/662648/8ba197385f563498.png)
 
 
 
-![p11](pic\11.png)
+![Markdown](http://i1.bvimg.com/662648/9acd91a9d39f85ae.png)
 
 
 
-![p12](pic\12.png)
+![Markdown](http://i1.bvimg.com/662648/f6b99292a0a0f687.png)
 
 
 
 
 
-**注意：** 这里将jdk和jre按照默认路径装在了C盘，试了一下装在D盘，同样的配置，Javac还是不能运行。emmm，不知道为什么....
+**PS：** 这里将jdk和jre按照默认路径装在了C盘，试了一下装在D盘，同样的配置，Javac还是不能运行。emmm，不知道为什么....
 
 
 

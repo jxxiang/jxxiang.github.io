@@ -59,7 +59,7 @@ title: 潜在因子（Latent Factor）推荐算法—音乐推荐
 
 
 
-![p1](pic\1.jpg)
+![Markdown](http://i1.bvimg.com/662648/77fbfa185a45c4a9.jpg)
 
 
 
@@ -69,7 +69,7 @@ R \approx PQ^T
 $$
 即
 
-![p2](pic\2.jpg)
+![Markdown](http://i1.bvimg.com/662648/ca8eb943ee992bbc.jpg)
 
 我们期望P和Q<sup>T</sup>的乘积约等于实际评分矩阵R，也就是求
 $$

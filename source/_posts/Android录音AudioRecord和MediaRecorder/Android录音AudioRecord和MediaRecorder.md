@@ -1,5 +1,5 @@
 ---
-title：Android录音AudioRecord和MediaRecorder
+title: Android录音AudioRecord和MediaRecorder
 ---
 
 ## AudioRecord
