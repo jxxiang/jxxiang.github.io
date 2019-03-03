@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="作者：不完美  一、下载、安装jdk（jdk中包含了jre)1、下载jdk（下载地址 ）点击下图中DOWNLOAD调转到下载页面  点击下图中的协议选择相应版本进行下载（这里下载的是jdk10.0.2 for windows 64)  2、安装jdkjdk下载下来是一个.exe文件，双击这个文件，按照提示进行安装（这里按照默认路径装在了C盘）  二、配置环境变量1、安装完成后，找到环境变量右击”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java 环境搭建（win10 + jdk 10）">
+<meta property="og:url" content="http://yoursite.com/2019/03/03/java环境搭建(win10+jdk10)/java 环境搭建（win10 + jdk 10）/index.html">
+<meta property="og:site_name" content="不完美小孩">
+<meta property="og:description" content="作者：不完美  一、下载、安装jdk（jdk中包含了jre)1、下载jdk（下载地址 ）点击下图中DOWNLOAD调转到下载页面  点击下图中的协议选择相应版本进行下载（这里下载的是jdk10.0.2 for windows 64)  2、安装jdkjdk下载下来是一个.exe文件，双击这个文件，按照提示进行安装（这里按照默认路径装在了C盘）  二、配置环境变量1、安装完成后，找到环境变量右击”">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i1.bvimg.com/662648/269f8462013c3b59.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/a46e4051f8489359.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/ea339ee25c39f746.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/1a4cb8c35c421a83.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/27d1b911d69d2835.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/b93c499951f52ad9.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/e265663f3d4fd840.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/133113c2b4faa751.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/03/java环境搭建(win10+jdk10)/java%20环境搭建（win10%20+%20jdk%2010）/pic/9.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/8ba197385f563498.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/9acd91a9d39f85ae.png">
+<meta property="og:image" content="http://i1.bvimg.com/662648/f6b99292a0a0f687.png">
+<meta property="og:updated_time" content="2019-03-03T02:45:03.558Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java 环境搭建（win10 + jdk 10）">
+<meta name="twitter:description" content="作者：不完美  一、下载、安装jdk（jdk中包含了jre)1、下载jdk（下载地址 ）点击下图中DOWNLOAD调转到下载页面  点击下图中的协议选择相应版本进行下载（这里下载的是jdk10.0.2 for windows 64)  2、安装jdkjdk下载下来是一个.exe文件，双击这个文件，按照提示进行安装（这里按照默认路径装在了C盘）  二、配置环境变量1、安装完成后，找到环境变量右击”">
+<meta name="twitter:image" content="http://i1.bvimg.com/662648/269f8462013c3b59.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/03/java环境搭建(win10+jdk10)/java 环境搭建（win10 + jdk 10）/">
+
+
+
+
+
+  <title>java 环境搭建（win10 + jdk 10） | 不完美小孩</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不完美小孩</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/java环境搭建(win10+jdk10)/java 环境搭建（win10 + jdk 10）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="不完美">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/MyAvatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不完美小孩">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java 环境搭建（win10 + jdk 10）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-03T10:45:03+08:00">
+                2019-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p align="right"> 作者：不完美</p>
+
+<h2 id="一、下载、安装jdk（jdk中包含了jre"><a href="#一、下载、安装jdk（jdk中包含了jre" class="headerlink" title="一、下载、安装jdk（jdk中包含了jre)"></a>一、下载、安装jdk（jdk中包含了jre)</h2><h3 id="1、下载jdk（下载地址-）"><a href="#1、下载jdk（下载地址-）" class="headerlink" title="1、下载jdk（下载地址 ）"></a>1、下载jdk（<a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener">下载地址</a> ）</h3><p>点击下图中DOWNLOAD调转到下载页面</p>
+<p><img src="http://i1.bvimg.com/662648/269f8462013c3b59.png" alt="Markdown"></p>
+<p>点击下图中的协议选择相应版本进行下载（这里下载的是jdk10.0.2 for windows 64)</p>
+<p><img src="http://i1.bvimg.com/662648/a46e4051f8489359.png" alt="Markdown"></p>
+<h3 id="2、安装jdk"><a href="#2、安装jdk" class="headerlink" title="2、安装jdk"></a>2、安装jdk</h3><p>jdk下载下来是一个.exe文件，双击这个文件，按照提示进行安装（这里按照默认路径装在了C盘）</p>
+<p><img src="http://i1.bvimg.com/662648/ea339ee25c39f746.png" alt="Markdown"></p>
+<h2 id="二、配置环境变量"><a href="#二、配置环境变量" class="headerlink" title="二、配置环境变量"></a>二、配置环境变量</h2><h3 id="1、安装完成后，找到环境变量"><a href="#1、安装完成后，找到环境变量" class="headerlink" title="1、安装完成后，找到环境变量"></a>1、安装完成后，找到环境变量</h3><p>右击”我的电脑“，点击”属性“，选择”高级系统设置“，如下图所示</p>
+<p><img src="http://i1.bvimg.com/662648/1a4cb8c35c421a83.png" alt="Markdown"></p>
+<p>点开”高级“选项卡，选择下方的”环境变量“</p>
+<p><img src="http://i1.bvimg.com/662648/27d1b911d69d2835.png" alt="Markdown"></p>
+<h3 id="2、修改系统变量（JAVA-HOME、JRE-HOME、CLASSPATH、PATH）"><a href="#2、修改系统变量（JAVA-HOME、JRE-HOME、CLASSPATH、PATH）" class="headerlink" title="2、修改系统变量（JAVA_HOME、JRE_HOME、CLASSPATH、PATH）"></a>2、修改系统变量（<em>JAVA_HOME、JRE_HOME、CLASSPATH、PATH</em>）</h3><p>这里jdk安装路径：C:\Program Files\Java\jdk-10.0.2</p>
+<pre><code>jre安装路径：C:\Program Files\Java\jre-10.0.2
+</code></pre><p><strong>JAVA_HOME：</strong> 在系统变量中如果没有JAVA_HOME则新建系统变量JAVA_HOME，变量值是jdk的安装路径，如下图所示。</p>
+<p><img src="http://i1.bvimg.com/662648/b93c499951f52ad9.png" alt="Markdown"></p>
+<p><strong>JRE_HOME：</strong>在系统变量中如果没有JRE_HOME则新建系统变量JRE_HOME，变量值是jre的安装路径，如下图所示。</p>
+<p><img src="http://i1.bvimg.com/662648/e265663f3d4fd840.png" alt="Markdown"></p>
+<p><strong>CLASS_PATH：</strong>在系统变量中如果没有CLASS_PATH则新建系统变量CLASS_PATH，变量值为：<code>.;%JAVA_HOME%\lib;%JRE_HOME%\lib</code> ，如下图所示。</p>
+<p><img src="http://i1.bvimg.com/662648/133113c2b4faa751.png" alt="Markdown"></p>
+<p><strong>PATH：</strong>编辑系统变量中的PATH，新增路径<code>C:\Program Files\Java\jdk-10.0.2\bin</code>和<code>C:\Program Files\Java\jre-10.0.2\bin</code> 。如下图所示（<em>注意：</em>win10需要用绝对路径，否则javac会报不是内部命令也不是外部命令）</p>
+<p><img src="pic\9.png" alt="p9"></p>
+<h2 id="三、输入java、java-version、javac-测试配置是否成功"><a href="#三、输入java、java-version、javac-测试配置是否成功" class="headerlink" title="三、输入java、java  -version、javac 测试配置是否成功"></a>三、输入java、java  -version、javac 测试配置是否成功</h2><p>如下图所示则表明配置成功。</p>
+<p><img src="http://i1.bvimg.com/662648/8ba197385f563498.png" alt="Markdown"></p>
+<p><img src="http://i1.bvimg.com/662648/9acd91a9d39f85ae.png" alt="Markdown"></p>
+<p><img src="http://i1.bvimg.com/662648/f6b99292a0a0f687.png" alt="Markdown"></p>
+<p><strong>PS：</strong> 这里将jdk和jre按照默认路径装在了C盘，试了一下装在D盘，同样的配置，Javac还是不能运行。emmm，不知道为什么….</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/03/Android-调用系统相机拍照/Android—调用系统相机拍照/" rel="next" title="Android—调用系统相机拍照">
+                <i class="fa fa-chevron-left"></i> Android—调用系统相机拍照
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/03/Camera2中涉及到的三个重要的callback/camera2中涉及的三个重要的callback/" rel="prev" title="camera2中涉及的三个重要的callback">
+                camera2中涉及的三个重要的callback <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/MyAvatar.png" alt="不完美">
+            
+              <p class="site-author-name" itemprop="name">不完美</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+		  
+		  <div id="music163player">
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=525240803&auto=0&height=66"></iframe>
+         </div>
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/jxxiang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/6572962094" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/bu-wan-mei-17-48-60" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-edit"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、下载、安装jdk（jdk中包含了jre"><span class="nav-number">1.</span> <span class="nav-text">一、下载、安装jdk（jdk中包含了jre)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、下载jdk（下载地址-）"><span class="nav-number">1.1.</span> <span class="nav-text">1、下载jdk（下载地址 ）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、安装jdk"><span class="nav-number">1.2.</span> <span class="nav-text">2、安装jdk</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、配置环境变量"><span class="nav-number">2.</span> <span class="nav-text">二、配置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、安装完成后，找到环境变量"><span class="nav-number">2.1.</span> <span class="nav-text">1、安装完成后，找到环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、修改系统变量（JAVA-HOME、JRE-HOME、CLASSPATH、PATH）"><span class="nav-number">2.2.</span> <span class="nav-text">2、修改系统变量（JAVA_HOME、JRE_HOME、CLASSPATH、PATH）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、输入java、java-version、javac-测试配置是否成功"><span class="nav-number">3.</span> <span class="nav-text">三、输入java、java  -version、javac 测试配置是否成功</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">不完美</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

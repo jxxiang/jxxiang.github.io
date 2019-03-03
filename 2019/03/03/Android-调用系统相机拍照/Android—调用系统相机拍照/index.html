@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/favicon.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="作者：不完美  本文实现的效果是：点击一个button，调用系统相机进行拍照，并储存在picture根目录下 一、页面布局页面布局比较简单，只有一个button，代码如下： 12345678910111213&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&amp;lt;LinearLayout xmlns:android=&quot;http://schemas.andro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android—调用系统相机拍照">
+<meta property="og:url" content="http://yoursite.com/2019/03/03/Android-调用系统相机拍照/Android—调用系统相机拍照/index.html">
+<meta property="og:site_name" content="不完美小孩">
+<meta property="og:description" content="作者：不完美  本文实现的效果是：点击一个button，调用系统相机进行拍照，并储存在picture根目录下 一、页面布局页面布局比较简单，只有一个button，代码如下： 12345678910111213&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&amp;lt;LinearLayout xmlns:android=&quot;http://schemas.andro">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i2.bvimg.com/662648/530b49ecab6e26cf.png">
+<meta property="og:updated_time" content="2019-03-03T02:45:03.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android—调用系统相机拍照">
+<meta name="twitter:description" content="作者：不完美  本文实现的效果是：点击一个button，调用系统相机进行拍照，并储存在picture根目录下 一、页面布局页面布局比较简单，只有一个button，代码如下： 12345678910111213&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&amp;gt;&amp;lt;LinearLayout xmlns:android=&quot;http://schemas.andro">
+<meta name="twitter:image" content="http://i2.bvimg.com/662648/530b49ecab6e26cf.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/03/Android-调用系统相机拍照/Android—调用系统相机拍照/">
+
+
+
+
+
+  <title>Android—调用系统相机拍照 | 不完美小孩</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不完美小孩</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/Android-调用系统相机拍照/Android—调用系统相机拍照/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="不完美">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/MyAvatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不完美小孩">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android—调用系统相机拍照</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-03T10:45:03+08:00">
+                2019-03-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p align="right">作者：不完美</p>
+
+<p><em>本文实现的效果是：点击一个button，调用系统相机进行拍照，并储存在picture根目录下</em></p>
+<h2 id="一、页面布局"><a href="#一、页面布局" class="headerlink" title="一、页面布局"></a>一、页面布局</h2><p>页面布局比较简单，只有一个button，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_marginLeft</span>=<span class="string">"10dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/btnPhoto"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"拍照"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、增加权限"><a href="#二、增加权限" class="headerlink" title="二、增加权限"></a>二、增加权限</h2><p>在AndroidManifest.xml中增加<strong>调用相机</strong>和<strong>存储数据</strong>的权限，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.CAMERA"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-feature</span> <span class="attr">android:name</span>=<span class="string">"android.hardware.camera"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.RECORD_AUDIO"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_FINE_LOCATION"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="三、设置照片存储路径"><a href="#三、设置照片存储路径" class="headerlink" title="三、设置照片存储路径"></a>三、设置照片存储路径</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> File <span class="title">createImageFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">      String timeStamp=<span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMdd_HHmmss"</span>).format(<span class="keyword">new</span> Date());</span><br><span class="line">      Log.i(timeStamp,<span class="string">"保存路径"</span>);</span><br><span class="line">      String imageFileName=<span class="string">"JPEG_"</span>+timeStamp+<span class="string">"_"</span>;</span><br><span class="line">      File storageDir = Environment.getExternalStoragePublicDirectory(</span><br><span class="line">              Environment.DIRECTORY_PICTURES);</span><br><span class="line">      File image = File.createTempFile(</span><br><span class="line">              imageFileName,  <span class="comment">/* prefix */</span></span><br><span class="line">              <span class="string">".jpg"</span>,         <span class="comment">/* suffix */</span></span><br><span class="line">              storageDir      <span class="comment">/* directory */</span></span><br><span class="line">      );</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Save a file: path for use with ACTION_VIEW intents</span></span><br><span class="line">      mCurrentPhotoPath = <span class="string">"file:"</span> + image.getAbsolutePath();</span><br><span class="line">      <span class="keyword">return</span> image;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四、启动系统相机拍照并存储"><a href="#四、启动系统相机拍照并存储" class="headerlink" title="四、启动系统相机拍照并存储"></a>四、启动系统相机拍照并存储</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dispatchTakePictureIntent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">//隐式intent，不指定要启动哪个活动，而是通过配置一些相关信息，如action，category等信息，然后交给系统分析并找出合适的活动去启动</span></span><br><span class="line">       Intent takePictureIntent = <span class="keyword">new</span> Intent(MediaStore.ACTION_IMAGE_CAPTURE);</span><br><span class="line">       <span class="comment">// Ensure that there's a camera activity to handle the intent</span></span><br><span class="line">       <span class="comment">//resolveActivity 该方法接受一个包管理器对象作为参数，通过查找该包管理器，返回能够处理该intent的activity的component对象，没有找到能处理该intent的组件则返回null</span></span><br><span class="line">       <span class="keyword">if</span> (takePictureIntent.resolveActivity(getPackageManager()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="comment">// Create the File where the photo should go</span></span><br><span class="line">           File photoFile = <span class="keyword">null</span>;</span><br><span class="line">           <span class="keyword">try</span> &#123;</span><br><span class="line">               photoFile = createImageFile();</span><br><span class="line">           &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">               <span class="comment">// Error occurred while creating the File</span></span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">// Continue only if the File was successfully created</span></span><br><span class="line">           <span class="keyword">if</span> (photoFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">               Uri photoUri=FileProvider.getUriForFile(<span class="keyword">this</span>,<span class="string">"com.example.z.test.fileProvider"</span>,photoFile);</span><br><span class="line">              <span class="comment">// Log.d(photoUri.toString(),"保存路径");</span></span><br><span class="line">               Log.i(photoUri.toString(),<span class="string">"保存路径"</span>);</span><br><span class="line">              <span class="comment">// Uri photoUri= FileProvider.getUriForFile(this,getPackageName()+".provider",photoFile);</span></span><br><span class="line">               takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,</span><br><span class="line">                       photoUri);</span><br><span class="line">               startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="五、遇到的问题"><a href="#五、遇到的问题" class="headerlink" title="五、遇到的问题"></a>五、遇到的问题</h2><p><em>Android 7.0禁止应用程序向外部公布file://的 URI，尝试传递 file://的 URI会触发 FileUriException。应用程序之间共享数据，应该发送 content://的 URI，且授予URI临时访问权限。解决方法配置FileProvider。</em></p>
+<h3 id="1、在AnadroidMainfest-xml中配置provider"><a href="#1、在AnadroidMainfest-xml中配置provider" class="headerlink" title="1、在AnadroidMainfest.xml中配置provider"></a>1、在AnadroidMainfest.xml中配置provider</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">provider</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">"android.support.v4.content.FileProvider"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:authorities</span>=<span class="string">"com.example.z.test.fileProvider"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:exported</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:grantUriPermissions</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">tools:replace</span>=<span class="string">"android:authorities"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:name</span>=<span class="string">"android.support.FILE_PROVIDER_PATHS"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:resource</span>=<span class="string">"@xml/provider_paths"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">tools:replace</span>=<span class="string">"android:resource"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2、增加provider-paths-xml"><a href="#2、增加provider-paths-xml" class="headerlink" title="2、增加provider_paths.xml"></a>2、增加provider_paths.xml</h3><p>在res文件夹下新建xml文件夹，在xml文件夹下增加provider_paths.xml，provider_paths.xml文件内容如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="六、代码清单"><a href="#六、代码清单" class="headerlink" title="六、代码清单"></a>六、代码清单</h2><p>目录结构如下图所示：</p>
+<p><img src="http://i2.bvimg.com/662648/530b49ecab6e26cf.png" alt="Markdown"></p>
+<h3 id="1、AndroidManifest-xml"><a href="#1、AndroidManifest-xml" class="headerlink" title="1、AndroidManifest.xml"></a>1、AndroidManifest.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">"http://schemas.android.com/tools"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"com.example.z.test"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.CAMERA"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-feature</span> <span class="attr">android:name</span>=<span class="string">"android.hardware.camera"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.WRITE_EXTERNAL_STORAGE"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_FINE_LOCATION"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:roundIcon</span>=<span class="string">"@mipmap/ic_launcher_round"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".MainActivity"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">provider</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">"android.support.v4.content.FileProvider"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:authorities</span>=<span class="string">"com.example.z.test.fileProvider"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:exported</span>=<span class="string">"false"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:grantUriPermissions</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">tools:replace</span>=<span class="string">"android:authorities"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:name</span>=<span class="string">"android.support.FILE_PROVIDER_PATHS"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">android:resource</span>=<span class="string">"@xml/provider_paths"</span></span></span><br><span class="line"><span class="tag">                <span class="attr">tools:replace</span>=<span class="string">"android:resource"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="2、MainActivity-java"><a href="#2、MainActivity-java" class="headerlink" title="2、MainActivity.java"></a>2、MainActivity.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.z.test;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.net.Uri;</span><br><span class="line"><span class="keyword">import</span> android.os.Environment;</span><br><span class="line"><span class="keyword">import</span> android.provider.MediaStore;</span><br><span class="line"><span class="keyword">import</span> android.support.v4.content.FileProvider;</span><br><span class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</span><br><span class="line"><span class="keyword">import</span> android.os.Bundle;</span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> android.view.View;</span><br><span class="line"><span class="keyword">import</span> android.widget.Button;</span><br><span class="line"><span class="keyword">import</span> android.widget.Toast;</span><br><span class="line"><span class="keyword">import</span>  android.content.Intent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Button btnPhoto;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> REQUEST_TAKE_PHOTO = <span class="number">1</span>;</span><br><span class="line">    String mCurrentPhotoPath;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        initView();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initView</span><span class="params">()</span></span>&#123;</span><br><span class="line">        btnPhoto=findViewById(R.id.btnPhoto);</span><br><span class="line">        btnPhoto.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span></span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (v.getId())&#123;</span><br><span class="line">            <span class="keyword">case</span> R.id.btnPhoto:</span><br><span class="line">              <span class="comment">//Toast.makeText(MainActivity.this,"btnPhoto",Toast.LENGTH_SHORT).show();</span></span><br><span class="line">                dispatchTakePictureIntent();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> File <span class="title">createImageFile</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">        String timeStamp=<span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyyMMdd_HHmmss"</span>).format(<span class="keyword">new</span> Date());</span><br><span class="line">        Log.i(timeStamp,<span class="string">"保存路径"</span>);</span><br><span class="line">        String imageFileName=<span class="string">"JPEG_"</span>+timeStamp+<span class="string">"_"</span>;</span><br><span class="line">        File storageDir = Environment.getExternalStoragePublicDirectory(</span><br><span class="line">                Environment.DIRECTORY_PICTURES);</span><br><span class="line">        File image = File.createTempFile(</span><br><span class="line">                imageFileName,  <span class="comment">/* prefix */</span></span><br><span class="line">                <span class="string">".jpg"</span>,         <span class="comment">/* suffix */</span></span><br><span class="line">                storageDir      <span class="comment">/* directory */</span></span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Save a file: path for use with ACTION_VIEW intents</span></span><br><span class="line">        mCurrentPhotoPath = <span class="string">"file:"</span> + image.getAbsolutePath();</span><br><span class="line">        <span class="keyword">return</span> image;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">dispatchTakePictureIntent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//隐式intent，不指定要启动哪个活动，而是通过配置一些相关信息，如action，category等信息，然后交给系统分析并找出合适的活动去启动</span></span><br><span class="line">        Intent takePictureIntent = <span class="keyword">new</span> Intent(MediaStore.ACTION_IMAGE_CAPTURE);</span><br><span class="line">        <span class="comment">// Ensure that there's a camera activity to handle the intent</span></span><br><span class="line">        <span class="comment">//resolveActivity 该方法接受一个包管理器对象作为参数，通过查找该包管理器，返回能够处理该intent的activity的component对象，没有找到能处理该intent的组件则返回null</span></span><br><span class="line">        <span class="keyword">if</span> (takePictureIntent.resolveActivity(getPackageManager()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// Create the File where the photo should go</span></span><br><span class="line">            File photoFile = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                photoFile = createImageFile();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">                <span class="comment">// Error occurred while creating the File</span></span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Continue only if the File was successfully created</span></span><br><span class="line">            <span class="keyword">if</span> (photoFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">                Uri photoUri=FileProvider.getUriForFile(<span class="keyword">this</span>,<span class="string">"com.example.z.test.fileProvider"</span>,photoFile);</span><br><span class="line">               <span class="comment">// Log.d(photoUri.toString(),"保存路径");</span></span><br><span class="line">                Log.i(photoUri.toString(),<span class="string">"保存路径"</span>);</span><br><span class="line">               <span class="comment">// Uri photoUri= FileProvider.getUriForFile(this,getPackageName()+".provider",photoFile);</span></span><br><span class="line">                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,</span><br><span class="line">                        photoUri);</span><br><span class="line">                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3、activity-main-xml"><a href="#3、activity-main-xml" class="headerlink" title="3、activity_main.xml"></a>3、activity_main.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_marginLeft</span>=<span class="string">"10dp"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">"@+id/btnPhoto"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"拍照"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="4、provider-paths-xml"><a href="#4、provider-paths-xml" class="headerlink" title="4、provider_paths.xml"></a>4、provider_paths.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">paths</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">external-path</span> <span class="attr">name</span>=<span class="string">"external_files"</span> <span class="attr">path</span>=<span class="string">"."</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">paths</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/03/java环境搭建(win10+jdk10)/java 环境搭建（win10 + jdk 10）/" rel="prev" title="java 环境搭建（win10 + jdk 10）">
+                java 环境搭建（win10 + jdk 10） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/MyAvatar.png" alt="不完美">
+            
+              <p class="site-author-name" itemprop="name">不完美</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+		  
+		  <div id="music163player">
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=525240803&auto=0&height=66"></iframe>
+         </div>
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/jxxiang" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/u/6572962094" target="_blank" title="微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/bu-wan-mei-17-48-60" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-edit"></i>知乎</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、页面布局"><span class="nav-number">1.</span> <span class="nav-text">一、页面布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、增加权限"><span class="nav-number">2.</span> <span class="nav-text">二、增加权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、设置照片存储路径"><span class="nav-number">3.</span> <span class="nav-text">三、设置照片存储路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、启动系统相机拍照并存储"><span class="nav-number">4.</span> <span class="nav-text">四、启动系统相机拍照并存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、遇到的问题"><span class="nav-number">5.</span> <span class="nav-text">五、遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、在AnadroidMainfest-xml中配置provider"><span class="nav-number">5.1.</span> <span class="nav-text">1、在AnadroidMainfest.xml中配置provider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、增加provider-paths-xml"><span class="nav-number">5.2.</span> <span class="nav-text">2、增加provider_paths.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、代码清单"><span class="nav-number">6.</span> <span class="nav-text">六、代码清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、AndroidManifest-xml"><span class="nav-number">6.1.</span> <span class="nav-text">1、AndroidManifest.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、MainActivity-java"><span class="nav-number">6.2.</span> <span class="nav-text">2、MainActivity.java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、activity-main-xml"><span class="nav-number">6.3.</span> <span class="nav-text">3、activity_main.xml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、provider-paths-xml"><span class="nav-number">6.4.</span> <span class="nav-text">4、provider_paths.xml</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">不完美</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
